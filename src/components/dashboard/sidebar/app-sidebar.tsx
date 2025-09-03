@@ -48,18 +48,18 @@ const data = {
     navMain: [
         {
             title: "Dashboard",
-            url: "#",
+            url: "/dashboard",
             icon: TbLayoutDashboardFilled ,
             isActive: true,
         },
         {
             title: "User Management",
-            url: "#",
+            url: "/users",
             icon: UserRoundCogIcon,
         },
         {
             title: "CRSS Data Report",
-            url: "#",
+            url: "/analytics",
             icon: RiBarChartBoxLine,
         },
     ],
