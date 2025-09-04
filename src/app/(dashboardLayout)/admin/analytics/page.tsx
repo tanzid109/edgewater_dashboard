@@ -1,11 +1,8 @@
-import React from 'react';
-
-const page = () => {
+export default function DataReport() {
     return (
         <div>
-            analytics page
+            <h2>CRSS Data Report</h2>
+            <div className="aspect-video rounded-xl bg-muted " />
         </div>
     );
-};
-
-export default page;
+}

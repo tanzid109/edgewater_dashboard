@@ -2,12 +2,6 @@
 
 import * as React from "react"
 import {
-    BookOpen,
-    Bot,
-    LayoutDashboard
-} from "lucide-react"
-
-import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
@@ -16,48 +10,68 @@ import {
 } from "@/components/ui/sidebar"
 import { TeamSwitcher } from "./team-switcher"
 import { NavMain } from "./nav-main"
-import { NavUser } from "./nav-user"
-
-// This is sample data.
-// In your app-sidebar.tsx, update the navMain data:
+import { usePathname } from "next/navigation"
+import { RiDashboardFill } from "react-icons/ri"
+import { FaUserGear } from "react-icons/fa6";
+import { BiSolidBarChartSquare } from "react-icons/bi";
+import { TbLogout2 } from "react-icons/tb"
+import { NavMain2 } from "./nav-main2"
 
 const data = {
     user: {
         name: "shadcn",
         email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
+        avatar: "/assets/user.jpg",
     },
     navMain: [
         {
             title: "Dashboard",
-            url: "/admin/dashboard", 
-            icon: LayoutDashboard,
-            isActive: true,
+            url: "/admin/dashboard",
+            icon: RiDashboardFill ,
         },
         {
             title: "User Management",
-            url: "/admin/users", 
-            icon: Bot,
+            url: "/admin/users",
+            icon: FaUserGear,
         },
         {
             title: "CRSS Data Report",
-            url: "/admin/analytics", 
-            icon: BookOpen,
+            url: "/admin/analytics",
+            icon: BiSolidBarChartSquare,
         },
+    ],
+    navFooter: [
+        {
+            title: "Sign out",
+            url: "/",
+            icon: TbLogout2 ,
+        },     
     ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+    const pathname = usePathname()
+
+    // Add `isActive` based on current path
+    const navItems = data.navMain.map((item) => ({
+        ...item,
+        isActive: pathname === item.url,
+    }))
+    const navFooter = data.navFooter.map((item) => ({
+        ...item,
+        isActive: pathname === item.url,
+    }))
+
     return (
-        <Sidebar collapsible="icon" {...props}>
-            <SidebarHeader className="">
-                <TeamSwitcher/>
+        <Sidebar className="bg-white" collapsible="icon" {...props}>
+            <SidebarHeader className="bg-white">
+                <TeamSwitcher />
             </SidebarHeader>
-            <SidebarContent>
-                <NavMain items={data.navMain} />
+            <SidebarContent className="bg-white">
+                <NavMain items={navItems} />
             </SidebarContent>
-            <SidebarFooter>
-                <NavUser user={data.user} />
+            <SidebarFooter className="bg-white">
+                <NavMain2 items={navFooter} />
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>
