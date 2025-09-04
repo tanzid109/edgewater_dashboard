@@ -1,4 +1,6 @@
 
+
+import Chart1 from "@/components/dashboard/main/Chart1";
 import StatCardValue from "@/components/dashboard/main/StatCardValue";
 import { TopDiv } from "@/components/dashboard/main/TopDiv";
 
@@ -7,10 +9,12 @@ export default function UserDashboard() {
         <div>
             <div className="rounded-xl mb-4"><TopDiv /></div>
             <div>
-                <StatCardValue/>
+                <StatCardValue />
             </div>
             <div className="grid auto-rows-min gap-4 md:grid-cols-3 mt-4">
-                <div className="aspect-video rounded-xl bg-muted " />
+                <div className="aspect-video rounded-xl bg-muted " >
+                    <Chart1/>
+                </div>
                 <div className="aspect-video rounded-xl bg-muted" />
                 <div className="aspect-video rounded-xl bg-muted" />
             </div>
