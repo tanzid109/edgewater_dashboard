@@ -30,7 +30,7 @@ export default function LoginForm() {
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         console.log(data);
-        router.push('/dashboard')
+        router.push('/admin/dashboard')
     };
 
     return (

@@ -2,13 +2,10 @@
 
 import * as React from "react"
 import {
-    AudioWaveform,
-    Command,
-    GalleryVerticalEnd,
-    UserRoundCogIcon
+    BookOpen,
+    Bot,
+    LayoutDashboard
 } from "lucide-react"
-import { TbLayoutDashboardFilled } from "react-icons/tb";
-import { RiBarChartBoxLine } from "react-icons/ri";
 
 import {
     Sidebar,
@@ -22,45 +19,30 @@ import { NavMain } from "./nav-main"
 import { NavUser } from "./nav-user"
 
 // This is sample data.
+// In your app-sidebar.tsx, update the navMain data:
+
 const data = {
     user: {
         name: "shadcn",
         email: "m@example.com",
         avatar: "/avatars/shadcn.jpg",
     },
-    teams: [
-        {
-            name: "Acme Inc",
-            logo: GalleryVerticalEnd,
-            plan: "Enterprise",
-        },
-        {
-            name: "Acme Corp.",
-            logo: AudioWaveform,
-            plan: "Startup",
-        },
-        {
-            name: "Evil Corp.",
-            logo: Command,
-            plan: "Free",
-        },
-    ],
     navMain: [
         {
             title: "Dashboard",
-            url: "/dashboard",
-            icon: TbLayoutDashboardFilled ,
+            url: "/admin/dashboard", 
+            icon: LayoutDashboard,
             isActive: true,
         },
         {
             title: "User Management",
-            url: "/users",
-            icon: UserRoundCogIcon,
+            url: "/admin/users", 
+            icon: Bot,
         },
         {
             title: "CRSS Data Report",
-            url: "/analytics",
-            icon: RiBarChartBoxLine,
+            url: "/admin/analytics", 
+            icon: BookOpen,
         },
     ],
 }
@@ -68,8 +50,8 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar collapsible="icon" {...props}>
-            <SidebarHeader>
-                <TeamSwitcher teams={data.teams} />
+            <SidebarHeader className="">
+                <TeamSwitcher/>
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={data.navMain} />
