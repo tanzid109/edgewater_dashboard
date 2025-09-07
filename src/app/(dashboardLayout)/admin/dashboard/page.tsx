@@ -3,6 +3,7 @@ import StatCardValue from "@/components/dashboard/main/StatCardValue";
 import StaticsChart from "@/components/dashboard/main/StaticsChart";
 import SubmissionCompare from "@/components/dashboard/main/SubmissionCompare";
 import { TopDiv } from "@/components/dashboard/main/TopDiv";
+import UserOverviewCard from "@/components/dashboard/main/UserOverviewCard";
 
 export default function UserDashboard() {
     return (
@@ -16,9 +17,11 @@ export default function UserDashboard() {
                     <StaticsChart />
                 </div>
                 <div className="aspect-video rounded-xl bg-muted">
-                    <SubmissionCompare/>
+                    <SubmissionCompare />
                 </div>
-                <div className="aspect-video rounded-xl bg-muted" />
+                <div className="aspect-video rounded-xl bg-muted">
+                    <UserOverviewCard />
+                </div>
             </div>
             <div className="min-h-[50vh] rounded-xl bg-muted mt-4" />
         </div>
