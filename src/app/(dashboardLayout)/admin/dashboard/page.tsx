@@ -1,6 +1,7 @@
 "use client"
 import StatCardValue from "@/components/dashboard/main/StatCardValue";
 import StaticsChart from "@/components/dashboard/main/StaticsChart";
+import SubmissionCompare from "@/components/dashboard/main/SubmissionCompare";
 import { TopDiv } from "@/components/dashboard/main/TopDiv";
 
 export default function UserDashboard() {
@@ -12,9 +13,11 @@ export default function UserDashboard() {
             </div>
             <div className="grid auto-rows-min gap-4 md:grid-cols-3 mt-4">
                 <div className="aspect-video rounded-xl bg-muted " >
-                    <StaticsChart/>
+                    <StaticsChart />
                 </div>
-                <div className="aspect-video rounded-xl bg-muted" />
+                <div className="aspect-video rounded-xl bg-muted">
+                    <SubmissionCompare/>
+                </div>
                 <div className="aspect-video rounded-xl bg-muted" />
             </div>
             <div className="min-h-[50vh] rounded-xl bg-muted mt-4" />
