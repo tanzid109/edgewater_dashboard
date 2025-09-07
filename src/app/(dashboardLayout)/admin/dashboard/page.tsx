@@ -1,7 +1,6 @@
-
-
-import Chart1 from "@/components/dashboard/main/Chart1";
+"use client"
 import StatCardValue from "@/components/dashboard/main/StatCardValue";
+import StaticsChart from "@/components/dashboard/main/StaticsChart";
 import { TopDiv } from "@/components/dashboard/main/TopDiv";
 
 export default function UserDashboard() {
@@ -13,7 +12,7 @@ export default function UserDashboard() {
             </div>
             <div className="grid auto-rows-min gap-4 md:grid-cols-3 mt-4">
                 <div className="aspect-video rounded-xl bg-muted " >
-                    <Chart1/>
+                    <StaticsChart/>
                 </div>
                 <div className="aspect-video rounded-xl bg-muted" />
                 <div className="aspect-video rounded-xl bg-muted" />
