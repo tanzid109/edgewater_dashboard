@@ -104,13 +104,17 @@ const SubmissionCompare: React.FC = () => {
                         </div>
                         <div className="flex items-center gap-1">
                             {item.trend === 'up' ? (
-                                <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path opacity="0.91" d="M6 0L0.5 5.50031L1.99961 7L6 2.99939L10.0004 7L11.5 5.50031L6 0Z" fill="#008402" />
+                                    <path opacity="0.6" d="M6 5L0.5 10.5003L1.99961 12L6 7.99939L10.0004 12L11.5 10.5003L6 5Z" fill="#008402" />
                                 </svg>
+
                             ) : (
-                                <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path opacity="0.91" d="M6 12L11.5 6.49969L10.0004 5L6 9.00061L1.99961 5L0.5 6.49969L6 12Z" fill="#D00004" />
+                                    <path opacity="0.6" d="M6 7L11.5 1.49969L10.0004 -1.311e-07L6 4.00061L1.99961 -8.30551e-07L0.5 1.49969L6 7Z" fill="#D00004" />
                                 </svg>
+
                             )}
                             <span className={`text-sm font-medium ${item.trend === 'up' ? 'text-green-500' : 'text-red-500'
                                 }`}>

@@ -1,64 +1,76 @@
-"use client";
 
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { ArrowUp, ArrowDown, Users } from "lucide-react";
+import { ArrowUp,  ChevronsUp } from "lucide-react";
+import { FaUsers } from "react-icons/fa6";
 
 export default function UserOverviewCard() {
     return (
-        <Card className="bg-white border-0 p-4 rounded-lg shadow-lg mx-auto h-80">
+        <Card className="bg-white border-0 p-4 rounded-lg shadow-lg mx-auto gap-8">
             {/* Header */}
-                <CardTitle className="px-4 pt-2 text-base font-medium">User Overview</CardTitle>           
+            <h2 className="text-lg font-semibold text-gray-900">User Overview</h2>          
             <Separator/>
             {/* Total Users */}
-            <CardContent>
-                <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-full bg-slate-100">
-                        <Users className="w-6 h-6 text-slate-600" />
+            <main className="py-1">
+                <div className="flex items-end gap-2">
+                    <div className="flex flex-col items-center gap-2">
+                        <div className="p-5 rounded-full bg-slate-100">
+                            <FaUsers className="w-7 h-7 text-slate-600" />
+                        </div>
+                        <div>
+                            <p className="text-2xl font-bold">1526</p>
+                            <p className="text-sm text-[#333333]">Total user</p>
+                        </div>
                     </div>
-                    <div>
-                        <p className="text-2xl font-bold">1526</p>
-                        <p className="text-sm text-muted-foreground">Total user</p>
-                    </div>
-                    <div className="ml-auto flex items-center text-green-600 text-sm font-semibold">
-                        <ArrowUp className="w-4 h-4 mr-1" />
-                        10.50%
+                    <div className="ml-auto flex items-center px-2.5 py-1 rounded-2xl bg-[#DEFFDE] text-base text-[#008402] font-semibold">
+                        <ArrowUp className="w-4 h-4 mr-1 " />
+                        <h2 className="text-[#008402]">10.50%</h2>
                     </div>
                 </div>
-
+                <Separator className="mt-6"/>
                 {/* Bottom Stats */}
-                <div className="grid grid-cols-3 gap-4 mt-6">
+                <div className="flex justify-between items-end mt-3.5">
                     {/* Active User */}
-                    <div className="rounded-xl p-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white">
-                        <p className="text-lg font-bold">1490</p>
-                        <div className="flex items-center text-sm">
-                            <ArrowUp className="w-4 h-4 mr-1" />
-                            10.50%
+                    <div>
+                        <div className="flex items-center">
+                            <h2 className="mb-3 text-lg font-semibold">1490</h2>
+                            <div className="flex ml-2 text-[#008402] items-center text-base font-semibold">
+                                <ChevronsUp className="w-4 h-4 mr-1" />
+                                <h2 className="text-base">10.50%</h2>
+                            </div>
                         </div>
-                        <p className="text-xs opacity-90 mt-1">Active user</p>
+                        <div className="rounded-xl p-6 bg-gradient-to-r from-[#2489B0] to-[#4CCCC5] text-white">
+                            <h2 className="text-base font-medium">Active user</h2>
+                        </div>
                     </div>
-
                     {/* New User */}
-                    <div className="rounded-xl p-4 bg-gradient-to-r from-cyan-400 to-blue-400 text-white">
-                        <p className="text-lg font-bold">15</p>
-                        <div className="flex items-center text-sm">
-                            <ArrowUp className="w-4 h-4 mr-1" />
-                            7%
+                    <div>
+                        <div className="flex items-center">
+                            <h2 className="mb-3 text-lg font-semibold">1490</h2>
+                            <div className="flex ml-2 text-[#008402] items-center text-base font-semibold">
+                                <ChevronsUp className="w-4 h-4 mr-1" />
+                                <h2 className="text-base">10.50%</h2>
+                            </div>
                         </div>
-                        <p className="text-xs opacity-90 mt-1">New user</p>
+                        <div className="rounded-xl p-5 bg-gradient-to-r from-[#2489B0] to-[#4CCCC5] text-white">
+                            <h2 className="text-base font-medium">New User</h2>
+                        </div>
                     </div>
-
                     {/* Inactive User */}
-                    <div className="rounded-xl p-4 bg-gradient-to-r from-cyan-400 to-blue-400 text-white">
-                        <p className="text-lg font-bold">7</p>
-                        <div className="flex items-center text-sm text-red-500">
-                            <ArrowDown className="w-4 h-4 mr-1" />
-                            10.50%
+                    <div>
+                        <div className="flex items-center">
+                            <h2 className="mb-3 text-lg font-semibold">1490</h2>
+                            <div className="flex ml-2 text-[#008402] items-center text-base font-semibold">
+                                <ChevronsUp className="w-4 h-4 mr-1" />
+                                <h2 className="text-base">10.50%</h2>
+                            </div>
                         </div>
-                        <p className="text-xs opacity-90 mt-1">Inactive user</p>
+                        <div className="rounded-xl p-4 bg-gradient-to-r from-[#2489B0] to-[#4CCCC5] text-white">
+                            <h2 className="text-base font-medium">Inactive User</h2>
+                        </div>
                     </div>
                 </div>
-            </CardContent>
+            </main>
         </Card>
     );
 }
