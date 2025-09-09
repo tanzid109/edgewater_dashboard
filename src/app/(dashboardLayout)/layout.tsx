@@ -11,7 +11,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
         <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
-                <header className="flex justify-between items-center py-1 shrink-0 gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-auto">
+                <header className="sticky top-0 z-50 backdrop-blur-xl flex justify-between items-center pt-2 shrink-0 gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-auto">
                     <div className="flex justify-between items-center gap-2 px-4">
                         <SidebarTrigger className="-ml-1" />
                     </div>
@@ -21,7 +21,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
                         }} />
                     </div>
                 </header>
-                <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                <div className="bg-[#F4FAFD] flex flex-1 flex-col gap-4 p-4 pt-0">
                     {
                         children
                     }

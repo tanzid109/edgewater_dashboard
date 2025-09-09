@@ -1,4 +1,5 @@
 "use client"
+import DashboardTable from "@/components/dashboard/main/DashboardTable";
 import StatCardValue from "@/components/dashboard/main/StatCardValue";
 import StaticsChart from "@/components/dashboard/main/StaticsChart";
 import SubmissionCompare from "@/components/dashboard/main/SubmissionCompare";
@@ -7,7 +8,7 @@ import UserOverviewCard from "@/components/dashboard/main/UserOverviewCard";
 
 export default function UserDashboard() {
     return (
-        <div>
+        <div className="">
             <div className="rounded-xl mb-4"><TopDiv /></div>
             <div>
                 <StatCardValue />
@@ -23,7 +24,9 @@ export default function UserDashboard() {
                     <UserOverviewCard />
                 </div>
             </div>
-            <div className="min-h-[50vh] rounded-xl bg-muted mt-4" />
+            <div className="min-h-auto rounded-xl mt-4 p-2" >
+                <DashboardTable />
+            </div>
         </div>
     );
 }
