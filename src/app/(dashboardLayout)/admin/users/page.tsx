@@ -1,16 +1,17 @@
+import { UserCard } from "@/components/users/UserCard";
+import UsersTable from "@/components/users/UsersTable";
+
 export default function Users() {
     return (
         <div>
-            <h2>Users Mangement</h2>
-            
-            <div className="grid auto-rows-min gap-4 md:grid-cols-4">
-                <div className="aspect-video rounded-xl bg-muted " />
-                <div className="aspect-video rounded-xl bg-muted" />
-                <div className="aspect-video rounded-xl bg-muted" />
-                <div className="aspect-video rounded-xl bg-muted" />
+            <h2 className="text-2xl font-bold px-1 py-3">Users Mangement</h2>
+
+            <div>
+                <UserCard/>
             </div>
-            <div className="min-h-[10vh] rounded-xl bg-muted mt-4"></div>
-            <div className="min-h-[50vh] rounded-xl bg-muted mt-4" />
+            <div>
+                <UsersTable />
+            </div>
         </div>
     );
 }
