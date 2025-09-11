@@ -59,7 +59,7 @@ export function UserCard() {
                 {/* Text */}
                 <div>
                     <div className="text-lg font-bold">1490</div>
-                    <div className="text-base font-normal text-[#333333]">New User</div>
+                    <div className="text-base font-normal text-[#333333]">Active User</div>
                 </div>
             </Card>
             {/* inactive user */}
