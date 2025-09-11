@@ -1,10 +1,15 @@
 "use client";
 
 import { DataTable } from "@/shared/Table";
-import { ColumnDef, useReactTable, getCoreRowModel, getPaginationRowModel } from "@tanstack/react-table";
+import {
+    ColumnDef,
+    useReactTable,
+    getCoreRowModel,
+    getPaginationRowModel,
+} from "@tanstack/react-table";
 import Image from "next/image";
 import { useState } from "react";
-import { data } from "@/data/users"; // your 10 users
+import { data } from "@/data/users"; // your 50 users with random status
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type User = {
@@ -51,16 +56,22 @@ const columns: ColumnDef<User>[] = [
     },
     {
         accessorKey: "date",
-        header: "Created on",
+        header: () => <div className="text-center">Created On</div>,
+        cell: ({ row }) => (
+            <div className="flex flex-col">
+                <span className="text-center">{row.original.date}</span>
+                <span className="text-center">{row.original.time}</span>
+            </div>
+        ),
     },
     {
         accessorKey: "status",
-        header: "Status",
+        header: () => <div className="text-center">Status</div>,
         cell: ({ row }) => {
             const isActive = row.original.status === "active";
             return (
                 <p
-                    className={`text-base font-medium border w-20 text-center p-1 rounded-lg 
+                    className={`text-base text-center font-medium border p-1 rounded-lg 
           ${isActive ? "text-[#008402] bg-[#DEFFDE]" : "text-[#D00004] bg-[#f5e3e3]"}`}
                 >
                     {row.original.status}
@@ -82,7 +93,8 @@ export default function DashboardTable() {
             pagination: { pageIndex, pageSize },
         },
         onPaginationChange: (updater) => {
-            const newPagination = typeof updater === "function" ? updater({ pageIndex, pageSize }) : updater;
+            const newPagination =
+                typeof updater === "function" ? updater({ pageIndex, pageSize }) : updater;
             setPageIndex(newPagination.pageIndex);
             setPageSize(newPagination.pageSize);
         },
@@ -93,7 +105,11 @@ export default function DashboardTable() {
     return (
         <div>
             <h2 className="text-base font-semibold mb-4">Recently added users</h2>
-            <DataTable columns={columns} data={table.getRowModel().rows.map(row => row.original)} />
+
+            <DataTable
+                columns={columns}
+                data={table.getRowModel().rows.map((row) => row.original)}
+            />
 
             {/* Pagination controls */}
             <div className="flex justify-between flex-row-reverse items-center gap-2 mt-4">
@@ -107,20 +123,53 @@ export default function DashboardTable() {
                         <ChevronLeft />
                     </button>
 
-                    {/* Page numbers */}
-                    {Array.from({ length: table.getPageCount() }).map((_, index) => {
-                        const isActive = table.getState().pagination.pageIndex === index;
-                        return (
-                            <button
-                                key={index}
-                                onClick={() => table.setPageIndex(index)}
-                                className={`px-4 py-2 border rounded-full disabled:opacity-50 ${isActive ? "bg-[#2489B0] text-white" : "bg-white text-black"
-                                    }`}
-                            >
-                                {index + 1}
-                            </button>
-                        );
-                    })}
+                    {/* Page numbers with ellipsis */}
+                    {(() => {
+                        const totalPages = table.getPageCount();
+                        const currentPage = table.getState().pagination.pageIndex + 1;
+                        const pages: (number | string)[] = [];
+
+                        if (totalPages <= 7) {
+                            for (let i = 1; i <= totalPages; i++) pages.push(i);
+                        } else {
+                            if (currentPage <= 4) {
+                                pages.push(1, 2, 3, 4, 5, "...", totalPages);
+                            } else if (currentPage >= totalPages - 3) {
+                                pages.push(
+                                    1,
+                                    "...",
+                                    totalPages - 4,
+                                    totalPages - 3,
+                                    totalPages - 2,
+                                    totalPages - 1,
+                                    totalPages
+                                );
+                            } else {
+                                pages.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
+                            }
+                        }
+
+                        return pages.map((page, index) => {
+                            if (page === "...") {
+                                return (
+                                    <span key={index} className="px-3 py-2">
+                                        ...
+                                    </span>
+                                );
+                            }
+                            const isActive = currentPage === page;
+                            return (
+                                <button
+                                    key={index}
+                                    onClick={() => table.setPageIndex((page as number) - 1)}
+                                    className={`px-4 py-2 border rounded-full ${isActive ? "bg-[#2489B0] text-white" : "bg-white text-black"
+                                        }`}
+                                >
+                                    {page}
+                                </button>
+                            );
+                        });
+                    })()}
 
                     {/* Next button */}
                     <button
@@ -131,6 +180,7 @@ export default function DashboardTable() {
                         <ChevronRight />
                     </button>
                 </div>
+
                 <div className="flex items-center gap-2">
                     {/* Page size selector */}
                     <p className="text-[#666666]">Show per page</p>

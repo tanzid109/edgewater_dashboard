@@ -1,7 +1,7 @@
 
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { ArrowUp,  ChevronsUp } from "lucide-react";
+import {  ChevronsUp } from "lucide-react";
 import { FaUsers } from "react-icons/fa6";
 
 export default function UserOverviewCard() {
@@ -12,7 +12,7 @@ export default function UserOverviewCard() {
             <Separator/>
             {/* Total Users */}
             <main className="py-1">
-                <div className="flex items-end gap-2">
+                <div className="flex items-end gap-2 px-8">
                     <div className="flex flex-col items-center gap-2">
                         <div className="p-5 rounded-full bg-slate-100">
                             <FaUsers className="w-7 h-7 text-slate-600" />
@@ -23,7 +23,7 @@ export default function UserOverviewCard() {
                         </div>
                     </div>
                     <div className="ml-auto flex items-center px-2.5 py-1 rounded-2xl bg-[#DEFFDE] text-base text-[#008402] font-semibold">
-                        <ArrowUp className="w-4 h-4 mr-1 " />
+                        <ChevronsUp className="w-4 h-4 mr-1" />
                         <h2 className="text-[#008402]">10.50%</h2>
                     </div>
                 </div>

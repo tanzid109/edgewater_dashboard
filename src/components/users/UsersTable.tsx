@@ -20,8 +20,8 @@ type User = {
     time?: string;
     status: "active" | "inactive";
 };
-const handleDelete = (data : User ) => {
-    console.log(data); 
+const handleDelete = (data: User) => {
+    console.log(data);
 };
 
 
@@ -93,7 +93,7 @@ export default function UsersTable() {
             cell: ({ row }) => (
                 <div className="flex items-center justify-center gap-4">
                     {/* edit user */}
-                    <EditUserModal row={row}/>
+                    <EditUserModal row={row} />
                     {/* toggle user status */}
                     <div
                         className="bg-[#FFEFEF] h-12 w-12 rounded-full flex items-center justify-center text-[#D00004] hover:bg-red-100 transition"
@@ -234,19 +234,52 @@ export default function UsersTable() {
                     </button>
 
                     {/* Page numbers */}
-                    {Array.from({ length: table.getPageCount() }).map((_, index) => {
-                        const isActive = table.getState().pagination.pageIndex === index;
-                        return (
-                            <button
-                                key={index}
-                                onClick={() => table.setPageIndex(index)}
-                                className={`px-4 py-2 border rounded-full disabled:opacity-50 ${isActive ? "bg-[#2489B0] text-white" : "bg-white text-black"
-                                    }`}
-                            >
-                                {index + 1}
-                            </button>
-                        );
-                    })}
+                    {(() => {
+                        const totalPages = table.getPageCount();
+                        const currentPage = table.getState().pagination.pageIndex + 1;
+                        const pages: (number | string)[] = [];
+
+                        if (totalPages <= 7) {
+                            for (let i = 1; i <= totalPages; i++) pages.push(i);
+                        } else {
+                            if (currentPage <= 4) {
+                                pages.push(1, 2, 3, 4, 5, "...", totalPages);
+                            } else if (currentPage >= totalPages - 3) {
+                                pages.push(
+                                    1,
+                                    "...",
+                                    totalPages - 4,
+                                    totalPages - 3,
+                                    totalPages - 2,
+                                    totalPages - 1,
+                                    totalPages
+                                );
+                            } else {
+                                pages.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
+                            }
+                        }
+
+                        return pages.map((page, index) => {
+                            if (page === "...") {
+                                return (
+                                    <span key={index} className="px-3 py-2">
+                                        ...
+                                    </span>
+                                );
+                            }
+                            const isActive = currentPage === page;
+                            return (
+                                <button
+                                    key={index}
+                                    onClick={() => table.setPageIndex((page as number) - 1)}
+                                    className={`px-4 py-2 border rounded-full ${isActive ? "bg-[#2489B0] text-white" : "bg-white text-black"
+                                        }`}
+                                >
+                                    {page}
+                                </button>
+                            );
+                        });
+                    })()}
 
                     {/* Next button */}
                     <button
