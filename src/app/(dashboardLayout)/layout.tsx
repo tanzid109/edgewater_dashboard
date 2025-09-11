@@ -1,10 +1,11 @@
 import { AppSidebar } from "@/components/dashboard/sidebar/app-sidebar"
-import { NavUser } from "@/components/dashboard/sidebar/nav-user"
 import {
     SidebarInset,
     SidebarProvider,
     SidebarTrigger,
 } from "@/components/ui/sidebar"
+import Image from "next/image"
+import Link from "next/link"
 
 export default function Dashboard({ children }: { children: React.ReactNode }) {
     return (
@@ -15,11 +16,18 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
                     <div className="flex justify-between items-center gap-2 px-4">
                         <SidebarTrigger className="-ml-1" />
                     </div>
-                    <div className="pr-10">
-                        <NavUser user={{
-                            avatar: "/assets/user.jpg",
-                        }} />
+                    <div className="mr-10 my-1 h-[72px] w-[72px] rounded-full overflow-hidden">
+                        <Link href="/admin/profile">
+                            <Image
+                                src="/assets/user.jpg"
+                                width={72}
+                                height={72}
+                                alt="profile"
+                                className="object-cover w-full h-full"
+                            />
+                        </Link>
                     </div>
+
                 </header>
                 <div className="bg-[#F4FAFD] flex flex-1 flex-col gap-4 p-4 pt-0">
                     {

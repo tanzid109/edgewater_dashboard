@@ -8,7 +8,7 @@ import UserOverviewCard from "@/components/dashboard/main/UserOverviewCard";
 
 export default function UserDashboard() {
     return (
-        <div className="">
+        <div className="mt-1">
             <div className="rounded-xl mb-4"><TopDiv /></div>
             <div>
                 <StatCardValue />
