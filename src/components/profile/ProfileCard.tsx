@@ -65,7 +65,7 @@ const ProfileCard = () => {
             setOpen(false);
             form.reset();
             setSelectedImage(null);
-            router.push('/admin/users');
+            router.push('/login');
         } catch (error) {
             // Handle error - keep modal open
             console.error("Error creating user:", error);
