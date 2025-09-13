@@ -6,7 +6,7 @@ import { FaUsers } from "react-icons/fa6";
 
 export default function UserOverviewCard() {
     return (
-        <Card className="bg-white border-0 p-4 rounded-lg shadow-lg mx-auto gap-8">
+        <Card className="bg-white border-0 p-4 rounded-lg shadow-lg mx-auto gap-3">
             {/* Header */}
             <h2 className="text-lg font-semibold text-gray-900">User Overview</h2>          
             <Separator/>

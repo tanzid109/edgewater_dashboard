@@ -63,7 +63,7 @@ const SubmissionCompare: React.FC = () => {
 
             {/* Pie Chart */}
             <div className="relative mb-6">
-                <ResponsiveContainer width="100%" height={226}>
+                <ResponsiveContainer width="100%" height={186}>
                     <PieChart>
                         <Pie
                             data={data}

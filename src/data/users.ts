@@ -22,26 +22,23 @@ const names = [
     "Benjamin", "Alice", "Michael", "Sophia", "David",
     "Emma", "James", "Olivia", "Daniel", "Ethan",
     "Liam", "Mia", "Charlotte", "Henry", "Amelia",
-    "Lucas", "Isabella", "Mason", "Harper", "Elijah"
+    "Lucas", "Isabella", "Mason", "Harper", "Elijah",
 ]
 
 export const data: User[] = Array.from({ length: 50 }, (_, i) => {
-    const randomPhoto = photos[Math.floor(Math.random() * photos.length)]
-    const randomName = names[Math.floor(Math.random() * names.length)]
-    const randomStatus = Math.random() > 0.5 ? "active" : "inactive"
+    const photo = photos[i % photos.length]        // cycle photos
+    const name = names[i % names.length]           // cycle names
+    const status = i % 2 === 0 ? "active" : "inactive" // alternate status
 
     return {
         id: String(i + 1).padStart(2, "0"),
-        photo: randomPhoto,
-        userId: Math.floor(10000 + Math.random() * 90000),
-        name: randomName,
-        email: `${randomName.toLowerCase()}${i + 1}@gmail.com`,
-        date: `${Math.floor(1 + Math.random() * 28)}th Oct, 2023`,
-        time: `${Math.floor(1 + Math.random() * 12)}:${Math.floor(
-            Math.random() * 60
-        )
-            .toString()
-            .padStart(2, "0")} ${Math.random() > 0.5 ? "AM" : "PM"}`,
-        status: randomStatus,
+        photo,
+        userId: 10000 + i, // deterministic user ID
+        name,
+        email: `${name.toLowerCase()}${i + 1}@gmail.com`,
+        date: `${(i % 28) + 1}th Oct, 2023`, // cycle 1–28
+        time: `${(i % 12) + 1}:${(i * 7 % 60).toString().padStart(2, "0")} ${i % 2 === 0 ? "AM" : "PM"
+            }`, // stable pseudo-random
+        status,
     }
 })

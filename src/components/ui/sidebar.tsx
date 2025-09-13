@@ -272,7 +272,15 @@ function SidebarTrigger({
       }}
       {...props}
     >
-      <Image src="/assets/arrow.png" alt="Toggle Sidebar" width={20} height={20}/>
+      <div className="relative w-5 h-5">
+        <Image
+          src="/assets/arrow.png"
+          alt="Toggle Sidebar"
+          fill
+          className="object-contain"
+          sizes="20px"
+        />
+      </div>
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )
