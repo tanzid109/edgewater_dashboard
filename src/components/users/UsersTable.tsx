@@ -57,7 +57,7 @@ export default function UsersTable() {
             accessorKey: "photo",
             cell: ({ row }) => (
                 <Image
-                    src={row.original.photo ?? "/assets/default-avatar.jpg"}
+                    src={row.original.photo ?? "/assets/user.jpg"}
                     alt={row.original.name ?? "user"}
                     width={48}
                     height={48}
