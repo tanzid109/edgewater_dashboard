@@ -3,6 +3,7 @@
 import {
     Dialog,
     DialogContent,
+    DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
@@ -107,12 +108,14 @@ const ChangePasswordModal = () => {
                         <div className="flex-1 flex flex-col gap-5 justify-center items-center rounded-2xl">
                             <Image src="/assets/Lock.png" alt="Forget Password" width={102} height={102} />
                             <div className="bg-[#F4FAFD] rounded-xl flex-grow justify-center items-center mx-auto px-10 py-10 w-full">
-                                <div className="flex flex-col items-center justify-center mb-6">
-                                    <h1 className="text-xl font-semibold">Unlock your account!</h1>
-                                    <p className="w-11/12 text-center font-extralight text-base">
-                                        Set a strong new password to unlock your account
-                                    </p>
-                                </div>
+                                <DialogTitle>
+                                    <div className="flex flex-col items-center justify-center mb-6">
+                                        <h1 className="text-xl font-semibold">Unlock your account!</h1>
+                                        <p className="w-11/12 text-center font-extralight text-base">
+                                            Set a strong new password to unlock your account
+                                        </p>
+                                    </div>
+                                </DialogTitle>
                                 <Form {...form}>
                                     <form onSubmit={form.handleSubmit(onSubmit)}>
                                         <FormField

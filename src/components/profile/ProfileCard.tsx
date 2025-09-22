@@ -83,7 +83,7 @@ const ProfileCard = () => {
                         <div className="flex flex-col gap-4 p-4 border rounded-2xl">
                             <div className="h-[100px] w-[100px] rounded-full overflow-hidden mx-auto">
                                 <Image
-                                    src={selectedImage || "/assets/user2.jpg"}
+                                    src={selectedImage || "/assets/user.jpg"}
                                     alt="Profile Image"
                                     height={100}
                                     width={100}
