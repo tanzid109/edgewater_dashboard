@@ -12,7 +12,7 @@ import {
 import Image from "next/image";
 import { useState, useMemo } from "react";
 import { data } from "@/data/users";
-import { Search, ChevronDown, Trash2 } from "lucide-react";
+import { Search, ChevronDown, Trash2, ChevronRight, ChevronLeft } from "lucide-react";
 import AddUserModal from "./AddUserModal";
 import { Switch } from "../ui/switch";
 import EditUserModal from "./EditUserModal";
@@ -159,7 +159,7 @@ export default function UsersTable() {
     return (
         <div>
             {/* Search & Filter */}
-            <div className="flex justify-between items-center my-6">
+            <div className="flex justify-between items-center my-6 ">
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                     <input
@@ -194,10 +194,100 @@ export default function UsersTable() {
                     <AddUserModal />
                 </div>
             </div>
+
+            {/* data table */}
             <DataTable columns={columns} data={table.getRowModel().rows.map(row => row.original)} />
+
+            {/* results */}
 
             <div className="mt-2 text-sm text-center text-gray-300">
                 Showing {table.getRowModel().rows.length} of {filteredData.length} results
+            </div>
+            {/* Pagination controls */}
+            <div className="flex justify-between flex-row-reverse items-center gap-2 mt-4">
+                <div className="flex items-center gap-2">
+                    {/* Previous button */}
+                    <button
+                        onClick={() => table.previousPage()}
+                        disabled={!table.getCanPreviousPage()}
+                        className="p-2 border rounded-full bg-[#2489B0] text-white disabled:opacity-50"
+                    >
+                        <ChevronLeft />
+                    </button>
+
+                    {/* Page numbers with ellipsis */}
+                    {(() => {
+                        const totalPages = table.getPageCount();
+                        const currentPage = table.getState().pagination.pageIndex + 1;
+                        const pages: (number | string)[] = [];
+
+                        if (totalPages <= 7) {
+                            for (let i = 1; i <= totalPages; i++) pages.push(i);
+                        } else {
+                            if (currentPage <= 4) {
+                                pages.push(1, 2, 3, 4, 5, "...", totalPages);
+                            } else if (currentPage >= totalPages - 3) {
+                                pages.push(
+                                    1,
+                                    "...",
+                                    totalPages - 4,
+                                    totalPages - 3,
+                                    totalPages - 2,
+                                    totalPages - 1,
+                                    totalPages
+                                );
+                            } else {
+                                pages.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
+                            }
+                        }
+
+                        return pages.map((page, index) => {
+                            if (page === "...") {
+                                return (
+                                    <span key={index} className="px-3 py-2">
+                                        ...
+                                    </span>
+                                );
+                            }
+                            const isActive = currentPage === page;
+                            return (
+                                <button
+                                    key={index}
+                                    onClick={() => table.setPageIndex((page as number) - 1)}
+                                    className={`px-4 py-2 border rounded-full ${isActive ? "bg-[#2489B0] text-white" : "bg-white text-black"
+                                        }`}
+                                >
+                                    {page}
+                                </button>
+                            );
+                        });
+                    })()}
+
+                    {/* Next button */}
+                    <button
+                        onClick={() => table.nextPage()}
+                        disabled={!table.getCanNextPage()}
+                        className="p-2 border rounded-full bg-[#2489B0] text-white disabled:opacity-50"
+                    >
+                        <ChevronRight />
+                    </button>
+                </div>
+
+                <div className="flex items-center gap-2">
+                    {/* Page size selector */}
+                    <p className="text-[#666666]">Show per page</p>
+                    <select
+                        value={table.getState().pagination.pageSize}
+                        onChange={(e) => table.setPageSize(Number(e.target.value))}
+                        className="border p-2 rounded-lg bg-[#F8F8F8] text-[#333333] font-medium"
+                    >
+                        {[5, 10, 20].map((size) => (
+                            <option className="bg-[#2489B0]" key={size} value={size}>
+                                {size}
+                            </option>
+                        ))}
+                    </select>
+                </div>
             </div>
         </div>
     );
