@@ -11,15 +11,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-// import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
-// import { userModalSchema } from "./UserModalValidation";
 import { useState, useRef } from "react";
 import ChangePasswordModal from "./ChangePasswordModal";
 
 const ProfileCard = () => {
-    const router = useRouter();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [open, setOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -65,7 +61,6 @@ const ProfileCard = () => {
             setOpen(false);
             form.reset();
             setSelectedImage(null);
-            router.push('/login');
         } catch (error) {
             // Handle error - keep modal open
             console.error("Error creating user:", error);
