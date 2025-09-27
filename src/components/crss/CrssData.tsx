@@ -9,9 +9,14 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import {  ClipboardPaste } from "lucide-react";
+import { ClipboardPaste } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+
+// ✅ Add xlsx + file-saver
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+import { CrisisData } from "@/data/crisis-data";
 
 export default function CrisisExport() {
     const [category, setCategory] = useState("mobile-crisis");
@@ -22,6 +27,36 @@ export default function CrisisExport() {
         { value: "mobile-crisis", label: "Mobile Crisis" },
         { value: "crisis-stabilization", label: "Crisis Stabilization Unit" },
     ];
+
+    // 🔹 Dummy JSON data (replace with API data if needed)
+    
+
+    // 🔹 Export function
+    const handleExport = () => {
+        // Filter JSON data by selected category + month
+        const filtered = CrisisData.filter(
+            (item) => item.category === category && item.month === month
+        );
+
+        if (filtered.length === 0) {
+            alert("No data found for selected filters!");
+            return;
+        }
+
+        // Convert JSON → worksheet
+        const worksheet = XLSX.utils.json_to_sheet(filtered);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Report");
+
+        // Generate buffer & save
+        const excelBuffer = XLSX.write(workbook, {
+            bookType: "xlsx",
+            type: "array",
+        });
+        const fileData = new Blob([excelBuffer], { type: "application/octet-stream" });
+
+        saveAs(fileData, `${category}_${month}.xlsx`);
+    };
 
     return (
         <main>
@@ -44,7 +79,6 @@ export default function CrisisExport() {
                                             : "bg-white text-gray-600 border-gray-300 hover:bg-gray-100"
                                     )}
                                 >
-                                    {/* Circle indicator */}
                                     <span
                                         className={cn(
                                             "flex h-4 w-4 items-center justify-center rounded-full border transition",
@@ -79,7 +113,7 @@ export default function CrisisExport() {
                                 <SelectItem value="April">April 2025</SelectItem>
                                 <SelectItem value="May">May 2025</SelectItem>
                                 <SelectItem value="June">June 2025</SelectItem>
-                                <SelectItem value="July">May 2025</SelectItem>
+                                <SelectItem value="July">July 2025</SelectItem>
                                 <SelectItem value="August">August 2025</SelectItem>
                                 <SelectItem value="September">September 2025</SelectItem>
                                 <SelectItem value="October">October 2025</SelectItem>
@@ -88,16 +122,23 @@ export default function CrisisExport() {
                             </SelectContent>
                         </Select>
 
-                        <Button className="bg-[#2489B0] hover:bg-[#2488b0c5] rounded-lg">
+                        <Button
+                            onClick={handleExport}
+                            className="bg-[#2489B0] hover:bg-[#2488b0c5] rounded-lg"
+                        >
                             <ClipboardPaste />
                             Export now
                         </Button>
                     </div>
                 </div>
             </div>
+
+            {/* Preview Section */}
             <div className="flex mt-4 h-auto flex-col items-center justify-center gap-6 rounded-2xl bg-white py-20 shadow">
                 <Image src="/assets/csv.png" alt="Crisis Illustration" width={400} height={300} />
-                <h2 className="text-base font-medium text-[#333333">Export your complete data report as CSV file</h2>
+                <h2 className="text-base font-medium text-[#333333]">
+                    Export your complete data report as Excel file
+                </h2>
             </div>
         </main>
     );
