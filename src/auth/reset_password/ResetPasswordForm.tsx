@@ -22,6 +22,10 @@ export default function ResetPasswordForm() {
     const router = useRouter();
     const form = useForm({
         resolver: zodResolver(resetSchema),
+        defaultValues: {
+            password: "",
+            Cpassword: "",
+        },
     });
     const password = form.watch("password");
     const passwordConfirm = form.watch("Cpassword");
@@ -31,10 +35,15 @@ export default function ResetPasswordForm() {
     // Show/hide state
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
-
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        console.log(data);
-        router.push('/login');
+        try {
+            console.log(data);
+            // simulate API request
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            router.push('/login');
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const renderPasswordInput = (

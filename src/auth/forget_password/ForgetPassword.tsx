@@ -19,15 +19,23 @@ export default function ForgetPasswordForm() {
     const router = useRouter()
     const form = useForm({
         resolver: zodResolver(forgetSchema),
+        defaultValues: {
+            email: "",
+        },
     });
 
     const {
         formState: { isSubmitting },
     } = form;
-
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        console.log(data);
-        router.push('/otp')
+        try {
+            console.log(data);
+            // simulate API request
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            router.push('/otp')
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

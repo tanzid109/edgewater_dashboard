@@ -24,6 +24,10 @@ export default function LoginForm() {
     const router = useRouter();
     const form = useForm({
         resolver: zodResolver(loginSchema),
+        defaultValues: {
+            email: "",
+            password: "",
+        },
     });
 
     const { formState: { isSubmitting } } = form;
@@ -31,8 +35,14 @@ export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        console.log(data);
-        router.push('/admin/dashboard');
+        try {
+            console.log(data);
+            // simulate API request
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            router.push('/admin/dashboard');
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
