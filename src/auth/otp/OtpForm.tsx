@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { Form, FormItem, FormMessage } from "@/components/ui/form";
 import { Controller, FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -6,7 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { otpSchema } from "./OtpValidation";
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
+import {
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSlot,
+} from "@/components/ui/input-otp";
 
 export default function OtpForm() {
     const router = useRouter();
@@ -14,8 +19,7 @@ export default function OtpForm() {
     const form = useForm({
         resolver: zodResolver(otpSchema),
         defaultValues: { otp: "" },
-        mode: "onChange",          // validate on typing
-        reValidateMode: "onChange" // revalidate on editing
+        mode: "onChange",
     });
 
     const {
@@ -25,7 +29,7 @@ export default function OtpForm() {
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         try {
             console.log(data);
-            // simulate API request
+            // simulate API call
             await new Promise((resolve) => setTimeout(resolve, 1000));
             router.push("/reset-password");
         } catch (error) {
@@ -34,56 +38,62 @@ export default function OtpForm() {
     };
 
     return (
-        <div className="h-screen w-screen flex items-center justify-center">
-            <div className="h-2/3 w-2/3 flex justify-evenly p-2 items-center bg-[#F4FAFD] rounded-2xl">
-                {/* Logo Image */}
-                <div className="flex flex-1 justify-center items-center bg-white h-full w-1/2 rounded-2xl mr-2">
-                    <Image src="/assets/logo.png" alt="Edgewater Logo" width={315} height={216} />
+        <div className="h-screen w-screen flex items-center justify-center bg-gray-50 p-4">
+            <div className="flex w-full max-w-2/3 h-2/3 bg-[#F4FAFD] rounded-2xl overflow-hidden shadow-md p-2">
+                {/* Left Section - Logo */}
+                <div className="flex flex-1 justify-center items-center bg-white p-6 rounded-2xl ">
+                    <Image
+                        src="/assets/logo.png"
+                        alt="Edgewater Logo"
+                        width={300}
+                        height={200}
+                        className="object-contain"
+                    />
                 </div>
 
-                {/* OTP Form */}
-                <div className="bg-[#2489B0] flex-1 p-18 flex flex-col gap-5 justify-center items-center h-full rounded-2xl">
-                    <div>
-                        <Image src="/assets/Email.png" alt="Forget Password" width={102} height={102} />
-                    </div>
+                {/* Right Section - OTP Form */}
+                <div className="flex flex-1 flex-col justify-center items-center bg-[#2489B0] p-10 text-white rounded-2xl ml-2">
+                    <Image
+                        src="/assets/Email.png"
+                        alt="OTP Verification"
+                        width={100}
+                        height={100}
+                    />
 
-                    <div className="border-2 bg-white rounded-xl flex-grow justify-center items-center mx-auto px-10 py-10">
-                        <div className="flex flex-col items-center justify-center my-5">
-                            <h1 className="text-xl font-semibold">OTP verification</h1>
-                            <p className="w-2/3 text-center font-extralight text-base">
+                    <div className="bg-white text-black mt-6 rounded-xl w-full max-w-md p-8 shadow-md">
+                        <div className="text-center mb-6">
+                            <h1 className="text-xl font-semibold">OTP Verification</h1>
+                            <p className="text-sm text-gray-600 mt-2">
                                 We’ve sent a code to your email. Enter it below to continue.
                             </p>
                         </div>
 
                         <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)}>
+                            <form
+                                onSubmit={form.handleSubmit(onSubmit)}
+                                className="space-y-6 flex flex-col items-center"
+                            >
                                 <Controller
                                     name="otp"
                                     control={form.control}
                                     render={({ field }) => (
-                                        <FormItem>
+                                        <FormItem className="flex flex-col items-center">
                                             <InputOTP
+                                                maxLength={6}
                                                 value={field.value || ""}
                                                 onChange={(val) => {
-                                                    // Only allow digits
-                                                    if (/^\d*$/.test(val)) {
-                                                        field.onChange(val);
-                                                    }
+                                                    if (/^\d*$/.test(val)) field.onChange(val);
                                                 }}
-                                                maxLength={6}
+                                                className="gap-2"
                                             >
-                                                <InputOTPGroup>
-                                                    <InputOTPSlot index={0} />
-                                                    <InputOTPSeparator />
-                                                    <InputOTPSlot index={1} />
-                                                    <InputOTPSeparator />
-                                                    <InputOTPSlot index={2} />
-                                                    <InputOTPSeparator />
-                                                    <InputOTPSlot index={3} />
-                                                    <InputOTPSeparator />
-                                                    <InputOTPSlot index={4} />
-                                                    <InputOTPSeparator />
-                                                    <InputOTPSlot index={5} />
+                                                <InputOTPGroup className="flex gap-2">
+                                                    {[0, 1, 2, 3, 4, 5].map((index) => (
+                                                        <InputOTPSlot
+                                                            key={index}
+                                                            index={index}
+                                                            className="w-12 h-12 text-lg font-semibold border-2 border-gray-300 rounded-lg focus-visible:ring-2 focus-visible:ring-[#2489B0] text-center"
+                                                        />
+                                                    ))}
                                                 </InputOTPGroup>
                                             </InputOTP>
                                             <FormMessage />
@@ -91,14 +101,22 @@ export default function OtpForm() {
                                     )}
                                 />
 
-                                <Button type="submit" className="mt-5 w-full" disabled={isSubmitting}>
+                                <Button
+                                    type="submit"
+                                    className="w-full bg-[#2489B0] hover:bg-[#1f7899]"
+                                    disabled={isSubmitting}
+                                >
                                     {isSubmitting ? "Verifying..." : "Verify OTP"}
                                 </Button>
                             </form>
                         </Form>
-                    </div>
+                        <div className="flex items-center justify-center text-center mt-4">
+                            <p className="text-sm font-medium">Didn&apos;t get otp ?</p>
+                            <span className="ml-2 text-base text-[#2489B0] font-medium">Resend</span>
+                        </div>
+                    </div>                   
                 </div>
-            </div>
+            </div>           
         </div>
     );
 }
